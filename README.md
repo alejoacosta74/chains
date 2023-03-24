@@ -1,8 +1,8 @@
-# Module chains
+# chains
 
 This repository is meant for educational purposes. It contains a collection of golang functions that can be used to implement different operations related to blockchain.
 
-The code in this repo is explained in detailed in the following article: [https://medium.com/@alejoacos/signing-and-verifying-ethereum-transactions-with-golang-a9cdc4061fbe](https://medium.com/@alejoacos/signing-and-verifying-ethereum-transactions-with-golang-a9cdc4061fbe)
+The code in this repo is explained in detailed in the following article: [https://medium.com/@alejoacosta2020/signing-and-verifying-ethereum-transactions-with-golang-a9cdc4061fbe](https://medium.com/@alejoacosta2020/signing-and-verifying-ethereum-transactions-with-golang-a9cdc4061fbe)
 
 
 ## How to use
