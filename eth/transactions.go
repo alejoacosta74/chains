@@ -36,6 +36,10 @@ func NewEthereumTx(nonce uint64, gasPrice int64, gasLimit uint64, address string
 //   - signer: the signer to use (e.g. types.HomesteadSigner{})
 //   - privKeyHex: the private key to sign the transaction with
 func SignEthereumTx(tx *types.Transaction, signer types.Signer, privKeyHex string) (*types.Transaction, error) {
+	privKeyHex, err := sanitizePrivateKey(privKeyHex)
+	if err != nil {
+		return nil, err
+	}
 	privKey, err := crypto.HexToECDSA(privKeyHex)
 	if err != nil {
 		return nil, err

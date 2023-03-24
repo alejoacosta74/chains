@@ -11,6 +11,10 @@ import (
 
 // PrivToPubKey converts a ECDSA private key to a Ethereum public key.
 func PrivToPubKey(privKeyHex string) (string, error) {
+	privKeyHex, err := sanitizePrivateKey(privKeyHex)
+	if err != nil {
+		return "", err
+	}
 	privKey, err := crypto.HexToECDSA(privKeyHex)
 	if err != nil {
 		return "", errors.Wrapf(err, "error converting private key to ECDSA: %s", privKeyHex)
@@ -47,5 +51,18 @@ func verifyHexAddress(address string) bool {
 	}
 	re := regexp.MustCompile(`[0-9a-fA-F]{40}$`)
 	return re.MatchString(address)
+}
 
+func sanitizePrivateKey(privKeyHex string) (string, error) {
+	if len(privKeyHex) > 2 && privKeyHex[:2] == "0x" {
+		privKeyHex = privKeyHex[2:]
+	}
+	if len(privKeyHex) != 64 {
+		return "", errors.New("invalid private key length: " + privKeyHex)
+	}
+	re := regexp.MustCompile(`[0-9a-fA-F]{40}$`)
+	if re.MatchString(privKeyHex) {
+		return privKeyHex, nil
+	}
+	return "", errors.New("invalid private key: " + privKeyHex)
 }

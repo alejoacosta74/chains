@@ -10,7 +10,7 @@ import (
 const ()
 
 func TestTransactions(t *testing.T) {
-	privKey := "fad9c8855b740a0b7ed4c221dbad0f33a83a49cad6b3fe8d5817ac83d38b6a19"
+	privKey := "0x85cbc7b1adfe877051d746c3996a01c2bc3e7a6988490439b1f4b4c2b465322d"
 	var nonce uint64 = 0
 	var gasPrice int64 = 1000000000
 	var gasLimit uint64 = 21000
