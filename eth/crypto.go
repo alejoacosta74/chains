@@ -60,7 +60,7 @@ func sanitizePrivateKey(privKeyHex string) (string, error) {
 	if len(privKeyHex) != 64 {
 		return "", errors.New("invalid private key length: " + privKeyHex)
 	}
-	re := regexp.MustCompile(`[0-9a-fA-F]{40}$`)
+	re := regexp.MustCompile(`[0-9a-fA-F]{64}$`)
 	if re.MatchString(privKeyHex) {
 		return privKeyHex, nil
 	}

@@ -77,3 +77,30 @@ func TestVerifyHexAddress(t *testing.T) {
 		})
 	}
 }
+
+func TestSanitizePrivateKey(t *testing.T) {
+	tests := []struct {
+		name    string
+		privKey string
+		want    string
+		isError bool
+	}{
+		{"empty", "", "", true},
+		{"short", "123456789012345678901234567890123456789012345678901234567890123", "", true},
+		{"long", "12345678901234567890123456789012345678901234567890123456789012345", "", true},
+		{"invalid", "123456789012345678901234567890123456789012345678901234567890123g", "", true},
+		{"valid", "fad9c8855b740a0b7ed4c221dbad0f33a83a49cad6b3fe8d5817ac83d38b6a19", "fad9c8855b740a0b7ed4c221dbad0f33a83a49cad6b3fe8d5817ac83d38b6a19", false},
+		{"valid(with prefix)", "0xfad9c8855b740a0b7ed4c221dbad0f33a83a49cad6b3fe8d5817ac83d38b6a19", "fad9c8855b740a0b7ed4c221dbad0f33a83a49cad6b3fe8d5817ac83d38b6a19", false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := sanitizePrivateKey(tt.privKey)
+			if tt.isError {
+				assert.Error(t, err)
+			} else {
+				assert.NoError(t, err)
+				assert.Equal(t, tt.want, got)
+			}
+		})
+	}
+}
